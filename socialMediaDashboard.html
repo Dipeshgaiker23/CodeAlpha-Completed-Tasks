@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .social-card {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+
+        #loginBtn,
+        #logoutBtn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Social Media Dashboard</h1>
+        <button id="loginBtn" onclick="login()">Log In</button>
+        <button id="logoutBtn" onclick="logout()" style="display:none;">Log Out</button>
+    </header>
+    <main id="dashboard" style="display:none;">
+        <!-- Content from social media platforms will be displayed here -->
+    </main>
+    <script>
+        // Simulated user data
+        let currentUser = null;
+
+        function login() {
+            // Simulate user authentication
+            // In a real-world scenario, you would redirect to the server for authentication
+            const username = prompt("Enter your username:");
+            if (username) {
+                currentUser = username;
+                showDashboard();
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            hideDashboard();
+        }
+
+        function showDashboard() {
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'block';
+            document.getElementById('dashboard').style.display = 'block';
+
+            // Simulate fetching and displaying content from social media platforms
+            const dashboard = document.getElementById('dashboard');
+            dashboard.innerHTML = '';
+
+            // Display social media content (simulated)
+            const socialMediaContent = [
+                "Twitter: This is a tweet!",
+                "Facebook: Check out this post!",
+                "Instagram: Beautiful photo here!",
+            ];
+
+            socialMediaContent.forEach(content => {
+                const socialCard = document.createElement('div');
+                socialCard.classList.add('social-card');
+                socialCard.innerText = content;
+                dashboard.appendChild(socialCard);
+            });
+        }
+
+        function hideDashboard() {
+            document.getElementById('loginBtn').style.display = 'block';
+            document.getElementById('logoutBtn').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'none';
+        }
+
+        // Check if the user was previously authenticated
+        if (currentUser) {
+            showDashboard();
+        }
+
+    </script>
+</body>
+
+</html>

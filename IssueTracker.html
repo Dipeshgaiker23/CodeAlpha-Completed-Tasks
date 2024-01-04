@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Tracker</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        #issue-form {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+        }
+
+        textarea,
+        input,
+        select {
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #loginBtn,
+        #logoutBtn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Issue Tracker</h1>
+        <button id="loginBtn" onclick="login()">Log In</button>
+        <button id="logoutBtn" onclick="logout()" style="display:none;">Log Out</button>
+    </header>
+    <main id="app" style="display:none;">
+        <div id="issue-form">
+            <h2>Create Issue</h2>
+            <form id="create-issue-form">
+                <label for="title">Title:</label>
+                <input type="text" id="title" required>
+
+                <label for="description">Description:</label>
+                <textarea id="description" required></textarea>
+
+                <label for="priority">Priority:</label>
+                <select id="priority" required>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+
+                <label for="assignee">Assignee:</label>
+                <input type="text" id="assignee" required>
+
+                <label for="attachment">Attachment:</label>
+                <input type="file" id="attachment">
+
+                <button type="button" onclick="createIssue()">Create Issue</button>
+            </form>
+        </div>
+
+        <div id="issue-list">
+            <!-- Issues will be dynamically added here -->
+        </div>
+    </main>
+    <script>
+        // Simulated user data
+        let currentUser = null;
+
+        function login() {
+            // Simulate user authentication
+            // In a real-world scenario, you would redirect to the server for authentication
+            const username = prompt("Enter your username:");
+            if (username) {
+                currentUser = username;
+                showApp();
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            hideApp();
+        }
+
+        function showApp() {
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'block';
+            document.getElementById('app').style.display = 'block';
+        }
+
+        function hideApp() {
+            document.getElementById('loginBtn').style.display = 'block';
+            document.getElementById('logoutBtn').style.display = 'none';
+            document.getElementById('app').style.display = 'none';
+        }
+
+        function createIssue() {
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const priority = document.getElementById('priority').value;
+            const assignee = document.getElementById('assignee').value;
+            const attachment = document.getElementById('attachment').value;
+
+            // Create a new issue card
+            const issueCard = document.createElement('div');
+            issueCard.classList.add('issue-card');
+            issueCard.innerHTML = `
+        <h3>${title}</h3>
+        <p>${description}</p>
+        <p><strong>Priority:</strong> ${priority}</p>
+        <p><strong>Assignee:</strong> ${assignee}</p>
+        <p><strong>Attachment:</strong> ${attachment}</p>
+        <button onclick="updateIssue(this)">Update</button>
+    `;
+
+            // Append the issue card to the issue list
+            document.getElementById('issue-list').appendChild(issueCard);
+
+            // Clear the form fields
+            document.getElementById('title').value = '';
+            document.getElementById('description').value = '';
+            document.getElementById('priority').value = 'low';
+            document.getElementById('assignee').value = '';
+            document.getElementById('attachment').value = '';
+        }
+
+        function updateIssue(button) {
+            // Simulated update action
+            alert("Issue updated!");
+        }
+
+    </script>
+</body>
+
+</html>
